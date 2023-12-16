@@ -5,35 +5,29 @@ import _ from 'lodash';
 import styled from 'styled-components/native';
 
 let numbers = [];
-
+let colors = ['red', 'blue', 'yellow', '#e5e5e5'];
 //1부터 45숫자 생성
 _.times(45, (n) => numbers.push(n + 1));
 numbers = _.shuffle(numbers);
-
 export default function App() {
   const [displayNumbers, setDisplayNumbers] = useState(_.shuffle(numbers));
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.row}>
-        <View style={styles.ball}>
-          <Text style={styles.text}>{displayNumbers[0]}</Text>
-        </View>
-        <View style={styles.ball}>
-          <Text style={styles.text}>{displayNumbers[1]}</Text>
-        </View>
-        <View style={styles.ball}>
-          <Text style={styles.text}>{displayNumbers[2]}</Text>
-        </View>
-        <View style={styles.ball}>
-          <Text style={styles.text}>{displayNumbers[3]}</Text>
-        </View>
-        <View style={styles.ball}>
-          <Text style={styles.text}>{displayNumbers[4]}</Text>
-        </View>
-        <View style={styles.ball}>
-          <Text style={styles.text}>{displayNumbers[5]}</Text>
-        </View>
+        {displayNumbers.slice(0, 6).map((number, index) => (
+          <View
+            key={number}
+            style={[
+              styles.ball,
+              {
+                backgroundColor:
+                  colors[Math.floor(Math.random() * colors.length)],
+              },
+            ]}>
+            <Text style={styles.text}>{number}</Text>
+          </View>
+        ))}
       </View>
       <Button
         title='다시하기'
@@ -56,7 +50,7 @@ const styles = StyleSheet.create({
   ball: {
     width: 50,
     height: 50,
-    backgroundColor: '#e5e5e5',
+    // backgroundColor: '#e5e5e5',
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,7 +58,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: '#0000FF',
+    color: '#000',
     fontWeight: 'bold',
   },
 });
