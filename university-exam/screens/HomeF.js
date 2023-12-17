@@ -22,6 +22,7 @@ const screenList = [
   { id: 'LottoGenerator', title: '로또 번호 생성기', link: 'LottoGenerator' },
   { id: 'ClockDigital', title: '디지털 시계', link: 'ClockDigital' },
   { id: 'PressableExam', title: 'Pressable', link: 'PressableExam' },
+  { id: 'KeyboardExam', title: 'KeyboardExam', link: 'KeyboardExam' },
 ];
 export default function HomeF({ navigation }) {
   const renderItem = useCallback(({ item }) => {

@@ -9,6 +9,7 @@ import LottoGenerator from './screens/LottoGenerator';
 import PressableExam from './screens/PressableExam';
 import Home from './screens/Home';
 import HomeF from './screens/HomeF';
+import KeyboardExam from './screens/KeyboardExam';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name='LottoGenerator' component={LottoGenerator} />
         <Stack.Screen name='ClockDigital' component={ClockDigital} />
         <Stack.Screen name='PressableExam' component={PressableExam} />
+        <Stack.Screen name='KeyboardExam' component={KeyboardExam} />
       </Stack.Navigator>
     </NavigationContainer>
   );
