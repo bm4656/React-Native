@@ -19,6 +19,12 @@ function Home({ navigation }) {
           navigation.navigate('ClockDigital');
         }}
       />
+      <Button
+        title='Pressable'
+        onPress={() => {
+          navigation.navigate('PressableExam');
+        }}
+      />
     </>
   );
 }

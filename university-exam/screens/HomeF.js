@@ -16,10 +16,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 //   { key: 'LottoGenerator', title: '로또 번호 생성기', link: 'LottoGenerator' },
 //   { key: 'ClockDigital', title: '디지털 시계', link: 'ClockDigital' },
 // ];
+
 // key가 아닌 id 사용시 keyExtrator 속성 사용
 const screenList = [
   { id: 'LottoGenerator', title: '로또 번호 생성기', link: 'LottoGenerator' },
   { id: 'ClockDigital', title: '디지털 시계', link: 'ClockDigital' },
+  { id: 'PressableExam', title: 'Pressable', link: 'PressableExam' },
 ];
 export default function HomeF({ navigation }) {
   const renderItem = useCallback(({ item }) => {
