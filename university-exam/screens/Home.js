@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
 import Constants from 'expo-constants';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+
 function Home({ navigation }) {
   // props.navigation
   return (
