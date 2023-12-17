@@ -1,64 +1,21 @@
-import { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, Button } from 'react-native';
+import * as React from 'react';
+import { Button, SafeAreaView, Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-import _ from 'lodash';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import styled from 'styled-components/native';
-
-let numbers = [];
-let colors = ['red', 'blue', 'yellow', '#e5e5e5'];
-//1부터 45숫자 생성
-_.times(45, (n) => numbers.push(n + 1));
-numbers = _.shuffle(numbers);
+import ClockDigital from './screens/ClockDigital';
+import LottoGenerator from './screens/LottoGenerator';
+import Home from './screens/Home';
+const Stack = createStackNavigator();
 export default function App() {
-  const [displayNumbers, setDisplayNumbers] = useState(_.shuffle(numbers));
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.row}>
-        {displayNumbers.slice(0, 6).map((number, index) => (
-          <View
-            key={number}
-            style={[
-              styles.ball,
-              {
-                backgroundColor:
-                  colors[Math.floor(Math.random() * colors.length)],
-              },
-            ]}>
-            <Text style={styles.text}>{number}</Text>
-          </View>
-        ))}
-      </View>
-      <Button
-        title='다시하기'
-        onPress={() => setDisplayNumbers(_.shuffle(numbers))}
-      />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='LottoGenerator' component={LottoGenerator} />
+        <Stack.Screen name='ClockDigital' component={ClockDigital} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  ball: {
-    width: 50,
-    height: 50,
-    // backgroundColor: '#e5e5e5',
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  text: {
-    fontSize: 20,
-    color: '#000',
-    fontWeight: 'bold',
-  },
-});
