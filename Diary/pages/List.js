@@ -6,17 +6,20 @@ import Button from '../components/Button';
 import Contents from '../components/Contents';
 import Container from '../components/Container';
 
-const ListItem = styled.TouchableOpacity`
+const ListContainer = styled.View`
   width: 100%;
   padding: 12px 0;
   border-bottom-color: #aaaaaa;
   border-bottom-width: 1px;
 `;
+const ListItem = styled.TouchableOpacity`
+  /* width: 100%;
+  padding: 12px 0;
+  border-bottom-color: #aaaaaa;
+  border-bottom-width: 1px; */
+`;
 const Label = styled.Text`
   font-size: 20px;
-`;
-const DeleteContainer = styled.View`
-  background-color: rebeccapurple;
 `;
 const DeleteButton = styled.Button``;
 
@@ -38,21 +41,30 @@ function List({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  const deleteItem = (date) => {
+    // const newList = list.filter((element) => element.date !== date);
+    const newList = _.reject(list, (element) => element.date === date);
+    setList(newList);
+    AsyncStorage.setItem('list', JSON.stringify(newList));
+  };
+
   return (
     <Container>
       <Contents>
         {_.sortBy(list, 'date').map((item) => {
           return (
-            <ListItem
-              key={item.date}
-              onPress={() =>
-                navigation.navigate('Detail', { date: item.date })
-              }>
-              <Label>{item.date}</Label>
-              <DeleteContainer>
-                <DeleteButton title='삭제' />
-              </DeleteContainer>
-            </ListItem>
+            <ListContainer key={item.date}>
+              <ListItem
+                onPress={() =>
+                  navigation.navigate('Detail', { date: item.date })
+                }>
+                <Label>{item.date}</Label>
+              </ListItem>
+              <DeleteButton
+                title='삭제'
+                onPress={() => deleteItem(item.date)}
+              />
+            </ListContainer>
           );
         })}
       </Contents>
