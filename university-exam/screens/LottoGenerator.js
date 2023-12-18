@@ -1,28 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Button } from 'react-native';
 import Constants from 'expo-constants';
-import _ from 'lodash';
 import styled from 'styled-components/native';
+import { shuffle } from 'lodash';
 
-let numbers = [];
-let colors = ['red', 'blue', 'yellow', '#e5e5e5'];
-//1부터 45숫자 생성
-_.times(45, (n) => numbers.push(n + 1));
-numbers = _.shuffle(numbers);
 export default function LottoGenerator() {
-  const [displayNumbers, setDisplayNumbers] = useState(_.shuffle(numbers));
+  const [displayNumbers, setDisplayNumbers] = useState(generateNumbers());
+
+  function generateNumbers() {
+    const numbers = Array.from({ length: 45 }, (_, index) => index + 1);
+    const shuffledNumbers = shuffle(numbers);
+    return shuffledNumbers.slice(0, 6);
+  }
+
+  // 바닐라JS 버전
+  // function shuffle(array) {
+  //   const shuffledArray = [...array];
+  //   for (let i = shuffledArray.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [shuffledArray[i], shuffledArray[j]] = [
+  //       shuffledArray[j],
+  //       shuffledArray[i],
+  //     ];
+  //   }
+  //   return shuffledArray;
+  // }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.row}>
-        {displayNumbers.slice(0, 6).map((number, index) => (
+        {displayNumbers.map((number, index) => (
           <View
             key={number}
             style={[
               styles.ball,
               {
-                backgroundColor:
-                  colors[Math.floor(Math.random() * colors.length)],
+                backgroundColor: getRandomColor(),
               },
             ]}>
             <Text style={styles.text}>{number}</Text>
@@ -31,10 +44,16 @@ export default function LottoGenerator() {
       </View>
       <Button
         title='다시하기'
-        onPress={() => setDisplayNumbers(_.shuffle(numbers))}
+        onPress={() => setDisplayNumbers(generateNumbers())}
       />
     </SafeAreaView>
   );
+}
+
+function getRandomColor() {
+  const colors = ['red', 'blue', 'yellow', '#e5e5e5'];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
 }
 
 const styles = StyleSheet.create({
@@ -50,7 +69,6 @@ const styles = StyleSheet.create({
   ball: {
     width: 50,
     height: 50,
-    // backgroundColor: '#e5e5e5',
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
